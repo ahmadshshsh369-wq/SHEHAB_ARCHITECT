@@ -214,41 +214,63 @@ html[dir="rtl"] .hero-credit{animation-name:from-start}
 @media(max-width:640px){.lz-btn{width:40px;height:40px;margin-top:-20px}}
 @media(prefers-reduced-motion:reduce){.lz-in,.lz-main{animation-name:lz-fade}.lz-ghost{display:none}.lz-base{transition:none}}
 
-/* ---------- AI filmmaking: interactive selector ---------- */
-.vsel{display:flex;width:100%;height:clamp(480px,78vh,700px);border:1px solid var(--line);background:#0b0b0c;overflow:visible}
-.vopt{position:relative;flex:1 1 0;min-width:64px;overflow:hidden;cursor:pointer;background:#111;border-inline-end:1px solid rgba(255,255,255,.14);opacity:0;transform:translateX(-60px);transition:flex .75s cubic-bezier(.2,.7,.2,1),opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),box-shadow .6s ease}
-html[dir="rtl"] .vopt{transform:translateX(60px)}
-.vopt:last-child{border-inline-end:0}
-.vsel.in .vopt{opacity:1;transform:none}
-.vopt.active{flex:7 1 0;cursor:default}
-.vopt::before{content:"";position:absolute;inset:-30px;background:var(--poster) center/cover;filter:blur(26px) brightness(.55);opacity:0;transition:opacity .6s}
-.vopt.active::before{opacity:1}
-.vopt video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:transparent;pointer-events:none}
-.vopt.active video{object-fit:contain;pointer-events:auto;z-index:1}
-.vopt::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,.15) 55%);pointer-events:none;transition:opacity .5s;z-index:2}
-.vopt.active::after{opacity:0}
-.vopt:not(.active):hover::after{opacity:.55}
-.vlab{position:absolute;z-index:3;inset-inline-start:14px;bottom:16px;display:flex;align-items:center;gap:10px;color:#fff;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.vplay{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.28);backdrop-filter:blur(6px);display:grid;place-items:center;flex:none}
-.vplay svg{margin-inline-start:2px}
-.vnum{font-size:12px;letter-spacing:.14em}
-.vopt.active .vlab{inset-block-start:14px;bottom:auto}
-.vopt.active .vplay{display:none}
-.vopt:focus-visible{outline:2px solid #fff;outline-offset:-4px}
-/* hover: the panel pops out — widens, lifts and scales with a soft overshoot */
-@media(hover:hover) and (min-width:761px){
-  .vsel.in .vopt:not(.active):hover{flex:2.3 1 0;transform:translateY(-12px) scale(1.06);z-index:6;box-shadow:0 30px 60px -12px rgba(0,0,0,.8);transition:flex .7s cubic-bezier(.2,.8,.2,1),transform .6s cubic-bezier(.2,.9,.25,1.18),box-shadow .5s ease,opacity .7s ease}
-  .vsel.in .vopt:not(.active):hover .vplay{background:rgba(255,255,255,.9);color:#000;border-color:#fff;transform:scale(1.12)}
-  .vplay{transition:background .3s,color .3s,transform .5s cubic-bezier(.2,.9,.25,1.18),border-color .3s}
+/* ---------- AI filmmaking: cinematic reel stage ---------- */
+.rs{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);background:#09090a;color:#fff;display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(300px,400px);gap:clamp(22px,3.2vw,52px);align-items:center;padding:clamp(22px,3vw,46px);opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rs.in{opacity:1;transform:none}
+.rs-bg{position:absolute;inset:-60px;z-index:-3;background-size:cover;background-position:center;filter:blur(42px) saturate(1.2) brightness(.55);opacity:0;transition:opacity 1s ease}
+.rs-bg.on{opacity:1}
+.rs::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(55% 75% at 46% 50%,rgba(198,161,91,.16),transparent 70%),linear-gradient(90deg,rgba(6,6,7,.78),rgba(6,6,7,.28) 52%,rgba(6,6,7,.7))}
+.rs::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 96px),repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 96px)}
+.rs-info{align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-width:0}
+.rs-k{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.rs-k::before{content:"";width:38px;height:1px;background:var(--gold)}
+.rs-main{display:flex;flex-direction:column;gap:16px}
+.rs-t{margin:0;font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.9;letter-spacing:-.025em;font-size:clamp(46px,6.2vw,96px);display:flex;flex-direction:column}
+.rs-t .w{display:block}
+.rs-t .n{display:block;color:transparent;-webkit-text-stroke:1.5px var(--gold);font-variant-numeric:tabular-nums;transition:opacity .4s}
+html[dir="rtl"] .rs-t{letter-spacing:0;font-family:var(--arabic)}
+.rs-cap{margin:0;max-width:34ch;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.72)}
+.rs-ctl{display:flex;align-items:center;gap:12px}
+.rs-btn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.06);backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .25s}
+.rs-btn:hover{background:var(--gold);color:#111;border-color:var(--gold);transform:scale(1.06)}
+.rs-btn:focus-visible,.rs-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html[dir="rtl"] .rs-btn svg{transform:scaleX(-1)}
+.rs-count{direction:ltr;unicode-bidi:isolate;margin-inline-start:auto;font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;color:rgba(255,255,255,.7)}
+.rs-count b{color:#fff;font-weight:500}
+.rs-bar{height:2px;background:rgba(255,255,255,.18);overflow:hidden}
+.rs-bar i{display:block;height:100%;background:var(--gold);transform:scaleX(0);transform-origin:left}
+html[dir="rtl"] .rs-bar i{transform-origin:right}
+.rs-player{position:relative;height:clamp(440px,64vh,620px);aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 44px 80px -24px rgba(0,0,0,.85),0 0 0 1px rgba(198,161,91,.6),0 0 60px -10px rgba(198,161,91,.25)}
+.rs-player video{display:block;width:100%;height:100%;object-fit:cover}
+.rs-rail{display:flex;flex-direction:column;gap:14px;min-width:0}
+.rs-rt{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.rs-rt::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.2)}
+.rs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.rs-card{position:relative;aspect-ratio:5/7;border-radius:9px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#151515 var(--poster) center/cover;color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.14);transition:transform .45s cubic-bezier(.2,.9,.25,1.15),box-shadow .35s,filter .35s;filter:brightness(.72) saturate(.9)}
+.rs-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 55%)}
+.rs-card span{position:absolute;z-index:1;inset-inline-start:8px;bottom:6px;font-family:var(--mono);font-size:11px;letter-spacing:.12em}
+.rs-card:hover{transform:translateY(-6px);filter:none}
+.rs-card.on{filter:none;box-shadow:0 0 0 2px var(--gold),0 14px 28px -10px rgba(0,0,0,.7);transform:translateY(-6px)}
+.rs-card.on::before{content:"";position:absolute;z-index:1;top:7px;inset-inline-end:7px;width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(198,161,91,.7);animation:rspulse 1.8s infinite}
+@keyframes rspulse{70%{box-shadow:0 0 0 8px rgba(198,161,91,0)}100%{box-shadow:0 0 0 0 rgba(198,161,91,0)}}
+.rs-hint{margin:0;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.5}
+@media(max-width:1080px){
+  .rs{grid-template-columns:1fr auto;grid-template-areas:"info player" "rail rail"}
+  .rs-info{grid-area:info}.rs-player{grid-area:player}.rs-rail{grid-area:rail}
+  .rs-grid{grid-template-columns:repeat(8,1fr)}
+  .rs-hint{display:none}
 }
 @media(max-width:760px){
-  .vsel{flex-direction:column;height:min(150vw,820px)}
-  .vopt{min-width:0;min-height:54px;transform:translateY(-40px);border-inline-end:0;border-bottom:1px solid rgba(255,255,255,.14)}
-  html[dir="rtl"] .vopt{transform:translateY(-40px)}
-  .vopt:last-child{border-bottom:0}
-  .vplay{width:32px;height:32px}
+  .rs{grid-template-columns:1fr;grid-template-areas:"info" "player" "rail";justify-items:stretch}
+  .rs-info{gap:14px}.rs-main{gap:10px}
+  .rs-t{flex-direction:row;align-items:baseline;gap:.3em;font-size:clamp(40px,13vw,64px)}
+  .rs-cap{display:none}
+  .rs-player{height:min(66vh,540px);justify-self:center}
+  .rs-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;padding:8px 2px 10px;scrollbar-width:none}
+  .rs-grid::-webkit-scrollbar{display:none}
+  .rs-card{flex:0 0 74px;scroll-snap-align:start}
 }
-@media(prefers-reduced-motion:reduce){.vopt{transition:none;opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.rs,.rs-bg,.rs-card,.rs-btn{transition:none}.rs{opacity:1;transform:none}.rs-card.on::before{animation:none}}
 
 /* ---------- sections ---------- */
 section{padding:clamp(52px,8vw,96px) 0;border-bottom:1px solid var(--line)}
@@ -891,34 +913,28 @@ html[dir="rtl"] .links a::after{transform-origin:right center}
 <section id="social"><div class="wrap">
   <div class="sec-head"><span class="idx">06</span><h2 data-en="AI Filmmaking &amp; Social Media" data-ar="صناعة الأفلام بالذكاء الاصطناعي ومحتوى السوشال ميديا">AI Filmmaking &amp; Social Media</h2></div>
   <p class="lede-dark" style="max-width:60ch;color:var(--muted);margin:0 0 30px" data-en="Alongside architecture, I experiment with AI-driven filmmaking — turning renders and stills into short cinematic sequences for social media." data-ar="إلى جانب العمارة، أجرّب صناعة الأفلام بالذكاء الاصطناعي — أحوّل الرندرات والصور الثابتة إلى مقاطع سينمائية قصيرة لمنصات التواصل.">Alongside architecture, I experiment with AI-driven filmmaking — turning renders and stills into short cinematic sequences for social media.</p>
-  <div class="vsel" id="vsel">
-    <div class="vopt active" data-i="0" style="--poster:url('videos/reel-01-poster.jpg')" role="button" tabindex="0" aria-label="Reel 01">
-      <video src="videos/reel-01.mp4" poster="videos/reel-01-poster.jpg" playsinline preload="metadata"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">01</span></div>
+  <div class="rs" id="rs" data-n="8">
+    <div class="rs-bg on" id="rsBgA"></div><div class="rs-bg" id="rsBgB"></div>
+    <div class="rs-info">
+      <div class="rs-k" data-en="AI Filmmaking" data-ar="صناعة الأفلام بالذكاء الاصطناعي">AI Filmmaking</div>
+      <div class="rs-main">
+        <h3 class="rs-t"><span class="w" data-en="Reel" data-ar="مقطع">Reel</span><span class="n" id="rsNum">01</span></h3>
+        <p class="rs-cap" data-en="A short cinematic sequence generated with AI from architectural renders and stills." data-ar="مقطع سينمائي قصير مُولَّد بالذكاء الاصطناعي انطلاقاً من رندرات وصور معمارية.">A short cinematic sequence generated with AI from architectural renders and stills.</p>
+      </div>
+      <div>
+        <div class="rs-ctl">
+          <button type="button" class="rs-btn" id="rsPrev" aria-label="Previous reel"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+          <button type="button" class="rs-btn" id="rsNext" aria-label="Next reel"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
+          <div class="rs-count" aria-live="polite"><b id="rsCur">01</b> / 08</div>
+        </div>
+        <div class="rs-bar" style="margin-top:18px"><i id="rsBar"></i></div>
+      </div>
     </div>
-    <div class="vopt" data-i="1" style="--poster:url('videos/reel-02-poster.jpg')" role="button" tabindex="0" aria-label="Reel 02">
-      <video src="videos/reel-02.mp4" poster="videos/reel-02-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">02</span></div>
-    </div>
-    <div class="vopt" data-i="2" style="--poster:url('videos/reel-03-poster.jpg')" role="button" tabindex="0" aria-label="Reel 03">
-      <video src="videos/reel-03.mp4" poster="videos/reel-03-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">03</span></div>
-    </div>
-    <div class="vopt" data-i="3" style="--poster:url('videos/reel-04-poster.jpg')" role="button" tabindex="0" aria-label="Reel 04">
-      <video src="videos/reel-04.mp4" poster="videos/reel-04-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">04</span></div>
-    </div>
-    <div class="vopt" data-i="4" style="--poster:url('videos/reel-05-poster.jpg')" role="button" tabindex="0" aria-label="Reel 05">
-      <video src="videos/reel-05.mp4" poster="videos/reel-05-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">05</span></div>
-    </div>
-    <div class="vopt" data-i="5" style="--poster:url('videos/reel-06-poster.jpg')" role="button" tabindex="0" aria-label="Reel 06">
-      <video src="videos/reel-06.mp4" poster="videos/reel-06-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">06</span></div>
-    </div>
-    <div class="vopt" data-i="6" style="--poster:url('videos/reel-07-poster.jpg')" role="button" tabindex="0" aria-label="Reel 07">
-      <video src="videos/reel-07.mp4" poster="videos/reel-07-poster.jpg" playsinline preload="none"></video>
-      <div class="vlab"><span class="vplay"><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg></span><span class="vnum mono">07</span></div>
+    <div class="rs-player"><video id="rsVideo" src="videos/reel-08.mp4" poster="videos/reel-08-poster.jpg" playsinline controls preload="metadata"></video></div>
+    <div class="rs-rail">
+      <div class="rs-rt" data-en="All reels" data-ar="كل المقاطع">All reels</div>
+      <div class="rs-grid" id="rsGrid"><button type="button" class="rs-card" data-i="0" style="--poster:url('videos/reel-08-poster.jpg')" aria-label="Reel 01"><span>01</span></button><button type="button" class="rs-card" data-i="1" style="--poster:url('videos/reel-01-poster.jpg')" aria-label="Reel 02"><span>02</span></button><button type="button" class="rs-card" data-i="2" style="--poster:url('videos/reel-02-poster.jpg')" aria-label="Reel 03"><span>03</span></button><button type="button" class="rs-card" data-i="3" style="--poster:url('videos/reel-03-poster.jpg')" aria-label="Reel 04"><span>04</span></button><button type="button" class="rs-card" data-i="4" style="--poster:url('videos/reel-04-poster.jpg')" aria-label="Reel 05"><span>05</span></button><button type="button" class="rs-card" data-i="5" style="--poster:url('videos/reel-05-poster.jpg')" aria-label="Reel 06"><span>06</span></button><button type="button" class="rs-card" data-i="6" style="--poster:url('videos/reel-06-poster.jpg')" aria-label="Reel 07"><span>07</span></button><button type="button" class="rs-card" data-i="7" style="--poster:url('videos/reel-07-poster.jpg')" aria-label="Reel 08"><span>08</span></button></div>
+      <p class="rs-hint" data-en="Pick a reel to play it. The next one follows automatically." data-ar="اختر مقطعاً لتشغيله، ويتبعه التالي تلقائياً.">Pick a reel to play it. The next one follows automatically.</p>
     </div>
   </div>
   <p style="margin-top:28px;color:var(--muted);font-size:15px">
@@ -1054,6 +1070,12 @@ var DESC=[{"en": "Designed in a contemporary modern style, this villa embraces a
     [AD,DU]
   ];
   RS.forEach(function(r,i){ if(PROJECTS[i]){PROJECTS[i].role=r[0];PROJECTS[i].status=r[1];} });
+})();
+
+/* order: project 10 sits at position 2; titles renumbered to match */
+(function(){
+  if(PROJECTS.length>9&&DESC.length===PROJECTS.length){[PROJECTS,DESC].forEach(function(a){a.splice(1,0,a.splice(9,1)[0]);});}
+  PROJECTS.forEach(function(p,i){p.en=p.en.replace(/^\d+\./,(i+1)+'.');p.ar=p.ar.replace(/^\d+\./,(i+1)+'.');});
 })();
 
 var grid = document.getElementById('grid');
@@ -1287,40 +1309,46 @@ document.getElementById('lang').addEventListener('click',function(){
   ui(); run();
 })();
 
-/* AI filmmaking: interactive selector */
+/* AI filmmaking: cinematic reel stage */
 (function(){
-  var box=document.getElementById('vsel'); if(!box)return;
-  var opts=[].slice.call(box.querySelectorAll('.vopt'));
-  function stopAll(except){opts.forEach(function(o){var v=o.querySelector('video');if(o!==except){v.pause();v.controls=false}})}
-  function activate(o,play){
-    if(!o.classList.contains('active')){
-      stopAll(o);
-      opts.forEach(function(x){x.classList.toggle('active',x===o)});
+  var box=document.getElementById('rs'); if(!box)return;
+  var v=document.getElementById('rsVideo'), cards=[].slice.call(box.querySelectorAll('.rs-card')), n=cards.length,
+      bgs=[document.getElementById('rsBgA'),document.getElementById('rsBgB')], front=0, cur=0,
+      num=document.getElementById('rsNum'), cnt=document.getElementById('rsCur'), bar=document.getElementById('rsBar');
+  function pad(i){return (i<10?'0':'')+i}
+  var ORDER=[7,0,1,2,3,4,5,6]; /* position -> file index: reel-08 plays first */
+  function path(i){return 'videos/reel-'+pad(ORDER[i]+1)}
+  bgs[0].style.backgroundImage="url('"+path(0)+"-poster.jpg')";
+  function show(i,play){
+    i=(i+n)%n; var changed=i!==cur; cur=i;
+    cards.forEach(function(c,k){c.classList.toggle('on',k===i);c.setAttribute('aria-current',k===i?'true':'false')});
+    num.textContent=pad(i+1); cnt.textContent=pad(i+1); bar.style.transform='scaleX(0)';
+    if(changed||play){
+      front=1-front; bgs[front].style.backgroundImage="url('"+path(i)+"-poster.jpg')";
+      bgs[front].classList.add('on'); bgs[1-front].classList.remove('on');
+      v.pause(); v.poster=path(i)+'-poster.jpg'; v.src=path(i)+'.mp4'; v.load();
     }
-    var v=o.querySelector('video'); v.controls=true; if(v.preload==='none')v.preload='metadata';
     if(play){var p=v.play(); if(p&&p.catch)p.catch(function(){})}
+    var c=cards[i], g=c.parentNode;
+    if(g.scrollWidth>g.clientWidth+2){ g.scrollTo({left:c.offsetLeft-g.offsetLeft-8,behavior:'smooth'}) }
   }
-  opts.forEach(function(o,i){
-    o.addEventListener('click',function(){ if(!o.classList.contains('active'))activate(o,true) });
-    o.addEventListener('keydown',function(e){
-      if(e.key==='Enter'||e.key===' '){if(!o.classList.contains('active')){e.preventDefault();activate(o,true)}}
-      else if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
-        var rtl=document.documentElement.dir==='rtl', step=(e.key==='ArrowRight')!==rtl?1:-1;
-        var t=opts[(i+step+opts.length)%opts.length]; t.focus(); activate(t,false); e.preventDefault();
-      }
-    });
+  cards.forEach(function(c,i){c.addEventListener('click',function(){show(i,true)})});
+  document.getElementById('rsPrev').addEventListener('click',function(){show(cur-1,true)});
+  document.getElementById('rsNext').addEventListener('click',function(){show(cur+1,true)});
+  v.addEventListener('timeupdate',function(){if(v.duration)bar.style.transform='scaleX('+(v.currentTime/v.duration).toFixed(4)+')'});
+  v.addEventListener('ended',function(){show(cur+1,true)});
+  box.addEventListener('keydown',function(e){
+    if(e.target!==v&&e.target.tagName==='BUTTON'&&(e.key==='ArrowRight'||e.key==='ArrowLeft')){
+      var rtl=document.documentElement.dir==='rtl', step=(e.key==='ArrowRight')!==rtl?1:-1;
+      var t=cards[(cur+step+n)%n]; show(cur+step,false); t.focus(); e.preventDefault();
+    }
   });
-  opts[0].querySelector('video').controls=true;
-  function reveal(){box.classList.add('in');opts.forEach(function(o,i){o.style.transitionDelay=(i*140)+'ms,'+(i*140)+'ms,'+(i*140)+'ms'});setTimeout(function(){opts.forEach(function(o){o.style.transitionDelay=''})},1500)}
+  function reveal(){box.classList.add('in')}
   if('IntersectionObserver' in window){
-    new IntersectionObserver(function(en,ob){
-      en.forEach(function(x){
-        if(x.isIntersecting){reveal();ob.disconnect()}
-      });
-    },{threshold:.15}).observe(box);
-    // pause video when scrolled away
-    new IntersectionObserver(function(en){if(!en[0].isIntersecting)stopAll(null)},{threshold:0}).observe(box);
+    new IntersectionObserver(function(en,ob){if(en[0].isIntersecting){reveal();ob.disconnect()}},{threshold:.12}).observe(box);
+    new IntersectionObserver(function(en){if(!en[0].isIntersecting)v.pause()},{threshold:0}).observe(box);
   }else reveal();
+  show(0,false);
 })();
 
 /* contact reveal + copy */
