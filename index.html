@@ -1385,7 +1385,6 @@ function renderPj(keepScroll){
    '<div class="pj-about"><div class="pj-lab">'+esc(pjT('ab'))+'</div>'+esc(first)+'<br><button type="button" class="pj-btn" data-a="gal">'+esc(pjT('view'))+' ↗</button></div>'+
    '<div class="pj-glass pj-status">'+esc(st)+'</div>'+
    '<div class="pj-glass pj-plate"><img alt="SHEHAB Studio" src="'+esc(LOGO)+'"></div>'+
-   '<button type="button" class="pj-glass pj-next" data-a="next" aria-label="'+esc(pjT('nxp')+': '+NPp.full)+'"><img alt="" src="'+esc(NP.imgs[0])+'"><div><em>'+esc(pjT('up'))+'</em><span>'+esc(NPp.full)+'</span></div><u>→</u></button>'+
    '<div class="pj-stat"><b data-count="'+n+'">'+pad(n)+'</b><span>'+esc(pjT('views'))+'<br>'+esc(sw)+'</span></div>'+
   '</section>'+
   '<div class="pj-bar"><span>'+esc(pjT('est')).replace(/(\d{4})/,'<em>$1</em>')+'</span><span class="dn"><span class="mid-t">'+esc(pjT('sc'))+'</span><i>↓</i></span><span><em>'+esc(ro?ro.split(/[,&]| و/)[0].trim():'')+'</em></span></div>'+
@@ -1421,7 +1420,7 @@ function pjIntro(){
   [].slice.call(pj.querySelectorAll('.pj-title i')).forEach(function(el,i){el.animate([{transform:'translateY(105%)'},{transform:'none'}],{duration:1000,delay:i*110,easing:E,fill:'backwards'});});
   var ph=document.getElementById('pjPhoto'); if(ph)ph.animate([{opacity:0,transform:'translateY(40px)',filter:'blur(12px)'},{opacity:1,transform:'none',filter:'blur(0)'}],{duration:1300,easing:E,fill:'backwards'});
   var pill=document.getElementById('pjPill'); if(pill)pill.animate([{opacity:0,transform:'translateY(-18px)'},{opacity:1,transform:'none'}],{duration:700,easing:E,fill:'backwards'});
-  [].slice.call(pj.querySelectorAll('.pj-about,.pj-status,.pj-plate,.pj-next,.pj-stat,.pj-meta')).forEach(function(el,i){el.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:800,delay:300+i*55,easing:E,fill:'backwards'});});
+  [].slice.call(pj.querySelectorAll('.pj-about,.pj-status,.pj-plate,.pj-stat,.pj-meta')).forEach(function(el,i){el.animate([{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'none'}],{duration:800,delay:300+i*55,easing:E,fill:'backwards'});});
   var b=pj.querySelector('.pj-stat b'); if(b){var t=+b.dataset.count,t0=performance.now();(function c(now){var x=Math.min(1,(now-t0)/1400);b.textContent=pad(Math.round(t*(1-Math.pow(1-x,3))));if(x<1)requestAnimationFrame(c);})(t0);}
 }
 function openPj(i){
